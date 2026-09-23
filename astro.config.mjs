@@ -7,6 +7,8 @@ import vue from "@astrojs/vue";
 
 import icon from "astro-icon";
 
+import vercel from "@astrojs/vercel";
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -14,4 +16,6 @@ export default defineConfig({
   },
 
   integrations: [vue(), icon()],
+  output: "server",
+  adapter: vercel(),
 });
