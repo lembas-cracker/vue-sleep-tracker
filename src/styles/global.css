@@ -1,1 +1,250 @@
 @import "tailwindcss";
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fade-up {
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out both;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(2);
+}
+
+.table-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+}
+
+.table-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.4);
+  border-radius: 999px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(148, 163, 184, 0.6);
+}
+
+/* Reveal animation for the mockup element in the Hero section */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*------- styles for the date picker -------*/
+
+.flatpickr-calendar {
+  background: rgba(30, 41, 59, 0.96) !important;
+  border: 1px solid rgba(148, 163, 184, 0.15) !important;
+  border-radius: 0.75rem !important;
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(99, 102, 241, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(12px);
+  color: #e5e7eb !important;
+  padding: 0.5rem;
+}
+
+.flatpickr-calendar.arrowTop::before,
+.flatpickr-calendar.arrowTop::after {
+  border-bottom-color: rgba(30, 41, 59, 0.96) !important;
+}
+.flatpickr-calendar.arrowBottom::before,
+.flatpickr-calendar.arrowBottom::after {
+  border-top-color: rgba(30, 41, 59, 0.96) !important;
+}
+
+.flatpickr-months {
+  background: transparent !important;
+}
+.flatpickr-months .flatpickr-month {
+  background: transparent !important;
+  color: #e5e7eb !important;
+  fill: #e5e7eb !important;
+}
+.flatpickr-current-month {
+  color: #e5e7eb !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-current-month input.cur-year {
+  background: transparent !important;
+  color: #e5e7eb !important;
+  font-weight: 600;
+}
+.flatpickr-current-month .flatpickr-monthDropdown-months:hover,
+.flatpickr-current-month input.cur-year:hover {
+  background: rgba(99, 102, 241, 0.15) !important;
+  border-radius: 0.375rem;
+}
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+  background: #1e293b !important;
+  color: #e5e7eb !important;
+}
+
+.flatpickr-prev-month,
+.flatpickr-next-month {
+  color: #e5e7eb !important;
+  fill: #e5e7eb !important;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease;
+}
+.flatpickr-prev-month:hover,
+.flatpickr-next-month:hover {
+  background: rgba(99, 102, 241, 0.2) !important;
+}
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg {
+  fill: #e5e7eb !important;
+  transition: fill 0.15s ease;
+}
+.flatpickr-prev-month:hover svg,
+.flatpickr-next-month:hover svg {
+  fill: #a5b4fc !important;
+}
+
+.flatpickr-weekdays {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  margin-bottom: 0.25rem;
+}
+span.flatpickr-weekday {
+  color: #94a3b8 !important;
+  font-weight: 600;
+  background: transparent !important;
+  font-size: 0.75rem;
+}
+
+.flatpickr-day {
+  color: #e5e7eb !important;
+  border-radius: 0.5rem !important;
+  border-color: transparent !important;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease;
+  font-weight: 500;
+}
+.flatpickr-day:hover,
+.flatpickr-day:focus {
+  background: rgba(99, 102, 241, 0.2) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+}
+.flatpickr-day.today {
+  border-color: #6366f1 !important;
+  background: rgba(99, 102, 241, 0.1) !important;
+}
+.flatpickr-day.today:hover {
+  background: rgba(99, 102, 241, 0.25) !important;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: linear-gradient(135deg, #3b82f6, #6366f1) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+.flatpickr-day.inRange {
+  background: rgba(99, 102, 241, 0.15) !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+  color: #64748b !important;
+  opacity: 0.6;
+}
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.flatpickr-disabled:hover {
+  color: #475569 !important;
+  background: transparent !important;
+  cursor: not-allowed !important;
+}
+
+.flatpickr-time {
+  background: transparent !important;
+  border-top: 1px solid rgba(148, 163, 184, 0.15) !important;
+  padding-top: 0.25rem;
+}
+.flatpickr-time input,
+.flatpickr-time .flatpickr-am-pm {
+  background: transparent !important;
+  color: #e5e7eb !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.flatpickr-time input:hover,
+.flatpickr-time .flatpickr-am-pm:hover,
+.flatpickr-time input:focus,
+.flatpickr-time .flatpickr-am-pm:focus {
+  background: rgba(99, 102, 241, 0.2) !important;
+  border-radius: 0.375rem;
+  color: #ffffff !important;
+}
+.flatpickr-time .flatpickr-time-separator {
+  color: #94a3b8 !important;
+}
+
+/* Time arrow spinners */
+.flatpickr-time .numInputWrapper span.arrowUp::after {
+  border-bottom-color: #e5e7eb !important;
+}
+.flatpickr-time .numInputWrapper span.arrowDown::after {
+  border-top-color: #e5e7eb !important;
+}
+.flatpickr-time .numInputWrapper span:hover {
+  background: rgba(99, 102, 241, 0.25) !important;
+}
+
+/* The visible trigger input (alt input) */
+.nap-input,
+.flatpickr-input.form-control,
+.flatpickr-input[readonly] {
+  cursor: pointer;
+  background-color: transparent;
+}
+.flatpickr-input[readonly] {
+  color: #e5e7eb;
+}

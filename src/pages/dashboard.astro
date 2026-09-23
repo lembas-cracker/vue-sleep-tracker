@@ -3,32 +3,53 @@ import Layout from "../layouts/Layout.astro";
 import NapForm from "../components/NapForm.vue";
 import NapChart from "../components/NapChart.vue";
 import NapList from "../components/NapList.vue";
+import NapFormSkeleton from "../components/NapFormSkeleton.astro";
 ---
 
 <Layout>
   <div class="min-h-screen py-6 px-4 sm:py-10 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <!-- Page Title -->
-      <h1 class="text-center text-3xl font-extrabold text-gray-800 sm:text-4xl lg:text-left">Dashboard</h1>
+      <h1 class="text-center text-3xl font-extrabold text-gray-200 sm:text-4xl lg:text-left">Dashboard</h1>
 
-      <!-- Main Grid -->
       <div class="mt-6 grid grid-cols-1 gap-6 sm:mt-10 lg:grid-cols-3 lg:gap-8">
-        <!-- Nap Form Card -->
         <div class="lg:col-span-1">
-          <div class="rounded-xl bg-white p-5 shadow-md sm:p-6">
-            <NapForm client:load />
+          <div
+            class="rounded-2xl bg-white/70 dark:bg-slate-800/60 backdrop-blur-xl
+            ring-1 ring-white/60 dark:ring-white/10
+            shadow-[0_8px_30px_rgb(0,0,0,0.06)]
+            p-5
+            transition-all duration-300
+            hover:shadow-[0_8px_40px_rgb(99,102,241,0.15)]
+            hover:-translate-y-0.5 animate-fade-up"
+          >
+            <NapForm client:only="vue">
+              <NapFormSkeleton slot="fallback" />
+            </NapForm>
           </div>
         </div>
 
-        <!-- Right Column: Chart + List -->
         <div class="flex flex-col gap-6 lg:col-span-2 lg:gap-8">
-          <!-- Nap Chart Card -->
-          <div class="rounded-xl bg-white p-5 shadow-md sm:p-6">
+          <div
+            class="rounded-2xl bg-white/70 dark:bg-slate-800/60 backdrop-blur-xl
+            ring-1 ring-white/60 dark:ring-white/10
+            shadow-[0_8px_30px_rgb(0,0,0,0.06)]
+            p-5 sm:p-6
+            transition-all duration-300
+            hover:shadow-[0_8px_40px_rgb(99,102,241,0.15)]
+            hover:-translate-y-0.5 animate-fade-up"
+          >
             <NapChart client:load />
           </div>
 
-          <!-- Nap List Card -->
-          <div class="rounded-xl bg-white p-5 shadow-md sm:p-6">
+          <div
+            class="rounded-2xl bg-white/70 dark:bg-slate-800/60 backdrop-blur-xl
+            ring-1 ring-white/60 dark:ring-white/10
+            shadow-[0_8px_30px_rgb(0,0,0,0.06)]
+            p-5 sm:p-6
+            transition-all duration-300
+            hover:shadow-[0_8px_40px_rgb(99,102,241,0.15)]
+            hover:-translate-y-0.5 animate-fade-up"
+          >
             <NapList client:load />
           </div>
         </div>
