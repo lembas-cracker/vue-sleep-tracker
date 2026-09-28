@@ -41,7 +41,7 @@ onUnmounted(() => {
 <template>
   <div class="space-y-4">
     <div class="flex items-center justify-between">
-      <h2 class="flex items-center gap-2 text-lg font-bold text-slate-800 dark:text-slate-100">
+      <h2 class="flex items-center gap-2 text-base sm:text-xl font-bold text-slate-800 dark:text-slate-100">
         <span
           class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-sm"
           aria-hidden="true"

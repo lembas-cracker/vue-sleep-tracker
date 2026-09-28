@@ -1,59 +1,27 @@
-<template>
-  <div class="w-full">
-    <h2 class="text-xl font-bold mb-2 text-gray-200">Daily Nap Summary</h2>
-    <div class="relative h-64 w-full sm:h-80 lg:h-96">
-      <!-- loading spinner -->
-      <div v-if="loading" class="absolute inset-0 flex items-center justify-center">
-        <div class="relative h-48 w-48">
-          <div
-            class="absolute inset-0 rounded-full border-4 border-transparent border-t-indigo-400 border-r-indigo-400/40 animate-spin"
-            style="animation-duration: 2.4s"
-          ></div>
-          <div
-            class="absolute inset-4 rounded-full border-4 border-transparent border-b-purple-400 border-l-purple-400/40 animate-spin"
-            style="animation-duration: 1.8s; animation-direction: reverse"
-          ></div>
-          <div
-            class="absolute inset-8 rounded-full border-4 border-transparent border-t-pink-400 border-r-pink-400/40 animate-spin"
-            style="animation-duration: 1.2s"
-          ></div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div
-              class="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/40 animate-pulse"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="h-7 w-7 text-white"
-              >
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <canvas ref="chartRef" :class="{ invisible: loading }"></canvas>
-    </div>
-  </div>
-</template>
-
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import { Chart, registerables } from "chart.js";
+import AnalysisModal from "./AnalysisModal.vue";
+import SleepAnalysis from "./SleepAnalysis.vue";
+
 Chart.register(...registerables);
 
 const chartRef = ref(null);
 const loading = ref(true);
+const naps = ref([]);
+const modalOpen = ref(false);
 let chartInstance = null;
+
+const canAnalyze = computed(() => {
+  const a = naps.value.filter((n) => n.twin === "A").length;
+  const b = naps.value.filter((n) => n.twin === "B").length;
+  // if at least 2 naps for A only, or 2 for B only, or 1 nap each
+  return (a >= 1 && b >= 1) || a >= 2 || b >= 2;
+});
 
 const loadChart = () => {
   const data = JSON.parse(localStorage.getItem("naps") || "[]");
+  naps.value = data;
 
   const summary = {};
   data.forEach((nap) => {
@@ -69,13 +37,10 @@ const loadChart = () => {
   if (chartInstance) chartInstance.destroy();
 
   const ctx = chartRef.value.getContext("2d");
-
-  // twin A
   const gradA = ctx.createLinearGradient(0, 0, 0, 300);
   gradA.addColorStop(0, "rgba(59, 130, 246, 0.95)");
   gradA.addColorStop(1, "rgba(99, 102, 241, 0.55)");
 
-  // twin B
   const gradB = ctx.createLinearGradient(0, 0, 0, 300);
   gradB.addColorStop(0, "rgba(244, 114, 182, 0.95)");
   gradB.addColorStop(1, "rgba(236, 72, 153, 0.55)");
@@ -127,18 +92,11 @@ const loadChart = () => {
           beginAtZero: true,
           title: { display: true, text: "Hours", color: "#e5e7eb" },
           ticks: { color: "#e5e7eb" },
-          grid: {
-            color: "rgba(229, 231, 235, 0.10)",
-          },
+          grid: { color: "rgba(229, 231, 235, 0.10)" },
         },
         x: {
-          grid: {
-            color: "rgba(229, 231, 235, 0.10)",
-          },
-          ticks: {
-            color: "#e5e7eb",
-            font: { size: 11 },
-          },
+          grid: { color: "rgba(229, 231, 235, 0.10)" },
+          ticks: { color: "#e5e7eb", font: { size: 11 } },
         },
       },
     },
@@ -156,3 +114,49 @@ onUnmounted(() => {
   if (chartInstance) chartInstance.destroy();
 });
 </script>
+
+<template>
+  <div class="w-full">
+    <div class="mb-5 sm:mb-2 flex items-center justify-between gap-4">
+      <h2 class="text-base font-bold text-gray-200 sm:text-xl">Daily Nap Summary</h2>
+
+      <button
+        type="button"
+        @click="modalOpen = true"
+        :disabled="!canAnalyze"
+        class="group relative cursor-pointer overflow-hidden rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 px-3 py-1.5 text-xs md:text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-indigo-500/50 active:translate-y-0 focus:outline-none focus-visible:ring-4 focus-visible:ring-indigo-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-indigo-500/30"
+      >
+        <span class="relative z-10 flex items-center gap-1.5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-3.5 w-3.5"
+          >
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4" />
+            <circle cx="12" cy="12" r="4" />
+          </svg>
+          Analyze
+        </span>
+        <span
+          class="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+          aria-hidden="true"
+        />
+      </button>
+    </div>
+
+    <div class="relative h-64 w-full sm:h-80 lg:h-96">
+      <div v-if="loading" class="absolute inset-0 flex items-center justify-center"></div>
+      <canvas ref="chartRef" :class="{ invisible: loading }"></canvas>
+    </div>
+
+    <!-- modal -->
+    <AnalysisModal :open="modalOpen" @close="modalOpen = false">
+      <SleepAnalysis :auto-run="true" />
+    </AnalysisModal>
+  </div>
+</template>
