@@ -116,17 +116,37 @@ import { Icon } from "astro-icon/components";
           </div>
           <span>Trusted by parents</span>
         </div>
+        <div
+          class="flex items-center justify-center lg:justify-start text-md
+                    text-slate-500 dark:text-slate-400 font-semibold"
+        >
+          <a
+            href="https://github.com/lembas-cracker/vue-sleep-tracker"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center rounded-lg p-2
+         text-slate-400 transition-colors duration-150
+         hover:bg-slate-100 hover:text-slate-900
+         dark:text-slate-400 dark:hover:bg-slate-700/60 dark:hover:text-slate-100
+         focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
+          >
+            <span class="flex items-center gap-2">
+              <Icon name="lucide:github" size={22} />
+              Ksenia's github source code</span
+            >
+          </a>
+        </div>
       </div>
 
-      {/* Visual Element / Illustration Mockup */}
+      {/* illustration mockup */}
       <div class="relative" data-tilt>
-        <div class="pointer-events-none absolute inset-0 -z-10 overflow-visible">
+        <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden sm:overflow-visible">
           <div class="absolute -top-16 -left-16 h-96 w-96 rounded-full
              bg-indigo-400/20 blur-3xl"></div>
           <div class="absolute -bottom-16 -right-16 h-96 w-96 rounded-full
              bg-purple-400/20 blur-3xl"></div>
         </div>
-        {/* Soft glow behind the mockup */}
+        {/* glow behind the mockup */}
         <div
           class="absolute inset-16 bg-gradient-to-br from-indigo-300 to-purple-300
             dark:from-indigo-500/15 dark:to-purple-500/15
@@ -134,7 +154,6 @@ import { Icon } from "astro-icon/components";
         >
         </div>
 
-        {/* Outer frosted frame */}
         <div
           class="relative rounded-[2.5rem] p-4
               bg-white/70 dark:bg-slate-800/60
@@ -142,7 +161,6 @@ import { Icon } from "astro-icon/components";
               ring-1 ring-white/60 dark:ring-white/10
               shadow-[0_8px_30px_rgb(0,0,0,0.06)]"
         >
-          {/* Inner mockup screen */}
           <div
             class="rounded-[1.8rem] overflow-hidden p-6 space-y-6
                       bg-white/60 dark:bg-slate-900/50
@@ -192,8 +210,8 @@ import { Icon } from "astro-icon/components";
       </div>
     </header>
 
-    {/* Features Grid */}
-    <section class="py-24">
+    {/* features */}
+    <section class="py-16 sm:py-24">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
           <h2 class="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">Built for the Twin Chaos</h2>
